@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { prisma } from '../config/prisma';
+import { prisma } from '../config/prisma.js';
 
 export class DoctorController {
   
@@ -58,7 +58,7 @@ export class DoctorController {
       const { id } = req.params;
 
       const doctor = await prisma.doctor.findUnique({
-        where: { id },
+        where: { id: id as string },
         include: {
           user: { select: { firstName: true, lastName: true, email: true } },
           hospital: true,
@@ -85,7 +85,7 @@ export class DoctorController {
     try {
       const { userId, hospitalId, speciality, experience, fees, qualification, department, licenseNumber, shiftStart, shiftEnd, consultationFee } = req.body;
 
-      const existingDoctor = await prisma.doctor.findUnique({ where: { userId } });
+      const existingDoctor = await prisma.doctor.findUnique({ where: { userId: userId as string } });
       if (existingDoctor) {
         return res.json(existingDoctor); 
       }
@@ -122,7 +122,7 @@ export class DoctorController {
       const { speciality, experience, fees, qualification } = req.body;
 
       const doctor = await prisma.doctor.update({
-        where: { id },
+        where: { id: id as string },
         data: { speciality, experience, fees, qualification },
         include: { user: { select: { firstName: true, email: true } } }
       });
@@ -147,7 +147,7 @@ export class DoctorController {
       // Get doctor's existing appointments for the date
       const existingAppointments = await prisma.appointment.findMany({
         where: {
-          doctorId: id,
+          doctorId: id as string,
           scheduledAt: {
             gte: new Date(`${dateStr}T00:00:00.000Z`),
             lt: new Date(`${dateStr}T23:59:59.999Z`)
@@ -192,7 +192,7 @@ export class DoctorController {
 
       const invitations = await prisma.doctorInvitation.findMany({
         where: {
-          doctorId: doctorId,
+          doctorId: doctorId as string,
           status: 'PENDING'
         },
         include: {
@@ -215,7 +215,7 @@ export class DoctorController {
 
       const invitation = await prisma.doctorInvitation.findFirst({
         where: {
-          id: invitationId,
+          id: invitationId as string,
           status: 'PENDING'
         }
       });
@@ -226,7 +226,7 @@ export class DoctorController {
 
       // Update invitation status
       const updatedInvitation = await prisma.doctorInvitation.update({
-        where: { id: invitationId },
+        where: { id: invitationId as string },
         data: { status }
       });
 

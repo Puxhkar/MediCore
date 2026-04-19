@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import { HospitalController } from './controllers/HospitalController';
+import { HospitalController } from './controllers/HospitalController.js';
 
 
 const app = express();
@@ -9,11 +9,11 @@ const port = process.env.PORT || 3001;
 app.use(cors());
 app.use(express.json());
 
-import { AuthController } from './controllers/AuthController';
-import { AppointmentController } from './controllers/AppointmentController';
-import { EmergencyController } from './controllers/EmergencyController';
-import { DoctorController } from './controllers/DoctorController';
-import { DoctorLocationController } from './controllers/DoctorLocationController';
+import { AuthController } from './controllers/AuthController.js';
+import { AppointmentController } from './controllers/AppointmentController.js';
+import { EmergencyController } from './controllers/EmergencyController.js';
+import { DoctorController } from './controllers/DoctorController.js';
+import { DoctorLocationController } from './controllers/DoctorLocationController.js';
 
 // Initialize DB (Singleton)
 // SQLite Initialization removed (Migrating to Prisma/MySQL)
@@ -63,7 +63,7 @@ app.post('/api/emergency', EmergencyController.enqueue);
 app.post('/api/emergency/process', EmergencyController.processNext);
 app.get('/api/emergency', EmergencyController.getQueue);
 
-import { DashboardController } from './controllers/DashboardController';
+import { DashboardController } from './controllers/DashboardController.js';
 
 // --- Dashboard ---
 app.get('/api/dashboard/patient/:patientId', DashboardController.getPatientMetrics);

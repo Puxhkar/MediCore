@@ -1,5 +1,5 @@
-import { UserRepository } from '../repositories/UserRepository';
-import { hashPassword, verifyPassword, generateToken } from '../utils/auth';
+import { UserRepository } from '../repositories/UserRepository.js';
+import { hashPassword, verifyPassword, generateToken } from '../utils/auth.js';
 
 export class AuthService {
     private userRepo = new UserRepository();

@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { prisma } from '../config/prisma';
+import { prisma } from '../config/prisma.js';
 
 export class DoctorLocationController {
   
@@ -9,7 +9,7 @@ export class DoctorLocationController {
 
       const locations = await prisma.doctorLocation.findMany({
         where: {
-          doctorId,
+          doctorId: doctorId as string,
           isActive: true
         }
       });
@@ -37,7 +37,7 @@ export class DoctorLocationController {
       }
 
       const doctor = await prisma.doctor.findUnique({
-        where: { id: doctorId }
+        where: { id: doctorId as string }
       });
 
       if (!doctor) {
@@ -46,7 +46,7 @@ export class DoctorLocationController {
 
       const location = await prisma.doctorLocation.create({
         data: {
-          doctorId,
+          doctorId: doctorId as string,
           name,
           address,
           city,
@@ -75,7 +75,7 @@ export class DoctorLocationController {
       const { name, address, city, phone } = req.body;
 
       const location = await prisma.doctorLocation.update({
-        where: { id: locationId },
+        where: { id: locationId as string },
         data: {
           name,
           address,
@@ -96,7 +96,7 @@ export class DoctorLocationController {
       const { locationId } = req.params;
 
       const location = await prisma.doctorLocation.update({
-        where: { id: locationId },
+        where: { id: locationId as string },
         data: {
           totalPatients: { increment: 1 }
         }
@@ -114,7 +114,7 @@ export class DoctorLocationController {
       const { locationId } = req.params;
 
       await prisma.doctorLocation.update({
-        where: { id: locationId },
+        where: { id: locationId as string },
         data: { isActive: false }
       });
 

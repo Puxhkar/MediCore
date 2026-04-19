@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { EmergencyQueueService } from '../services/EmergencyQueueService';
+import { EmergencyQueueService } from '../services/EmergencyQueueService.js';
 
 // To avoid recreating heaps, use a singleton or exported instance if necessary.
 // Here we will export a shared instance since heap state is in-memory.

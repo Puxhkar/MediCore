@@ -1,5 +1,5 @@
-import { AppointmentRepository } from '../repositories/Repositories';
-import { prisma } from '../config/prisma';
+import { AppointmentRepository } from '../repositories/Repositories.js';
+import { prisma } from '../config/prisma.js';
 
 export class AppointmentService {
     private appointmentRepo = new AppointmentRepository();

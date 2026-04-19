@@ -1,6 +1,6 @@
-import { PatientRepository } from '../repositories/Repositories';
-import { prisma } from '../config/prisma';
-import { AuditService } from './AuditService';
+import { PatientRepository } from '../repositories/Repositories.js';
+import { prisma } from '../config/prisma.js';
+import { AuditService } from './AuditService.js';
 
 export class PatientService {
     private patientRepo = new PatientRepository();

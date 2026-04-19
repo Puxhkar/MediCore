@@ -1,8 +1,8 @@
-import { BedRepository, PatientRepository } from '../repositories/Repositories';
-import { BedAllocator, ICUAllocationStrategy, GeneralAllocationStrategy } from '../patterns/strategy/BedAllocationStrategy';
-import { prisma } from '../config/prisma';
-import { AuditService } from './AuditService';
-import { BillingService } from './BillingService';
+import { BedRepository, PatientRepository } from '../repositories/Repositories.js';
+import { BedAllocator, ICUAllocationStrategy, GeneralAllocationStrategy } from '../patterns/strategy/BedAllocationStrategy.js';
+import { prisma } from '../config/prisma.js';
+import { AuditService } from './AuditService.js';
+import { BillingService } from './BillingService.js';
 
 export class BedService {
     private bedRepo = new BedRepository();

@@ -1,5 +1,5 @@
-import { EmergencyQueueRepository, PatientRepository } from '../repositories/Repositories'; 
-import { MaxHeap } from '../utils/MaxHeap';
+import { EmergencyQueueRepository, PatientRepository } from '../repositories/Repositories.js'; 
+import { MaxHeap } from '../utils/MaxHeap.js';
 
 export class EmergencyQueueService {
     private eqRepo = new EmergencyQueueRepository();

@@ -1,7 +1,8 @@
 import { Request, Response } from 'express';
-import { PatientService } from '../services/PatientService';
-import { BedService } from '../services/BedService';
-import { HospitalService } from '../services/HospitalService';
+import { PatientService } from '../services/PatientService.js';
+import { prisma } from '../config/prisma.js';
+import { BedService } from '../services/BedService.js';
+import { HospitalService } from '../services/HospitalService.js';
 
 const patientService = new PatientService();
 const bedService = new BedService();
@@ -32,7 +33,7 @@ export class HospitalController {
 
     static async getHospitalDoctors(req: Request, res: Response) {
         try {
-            const doctors = await hospitalService.getHospitalDoctors(req.params.hospitalId);
+            const doctors = await hospitalService.getHospitalDoctors(req.params.hospitalId as string);
             res.json(doctors);
         } catch (error: any) {
             res.status(500).json({ error: error.message });
@@ -41,7 +42,7 @@ export class HospitalController {
 
     static async getSingleDoctor(req: Request, res: Response) {
         try {
-            const doctor = await hospitalService.getDoctorById(req.params.docId);
+            const doctor = await hospitalService.getDoctorById(req.params.docId as string);
             if (!doctor) return res.status(404).json({ error: 'Doctor not found' });
             res.json(doctor);
         } catch (error: any) {
@@ -80,7 +81,7 @@ export class HospitalController {
     // --- Legacy Bed API ---
     static async allocateBed(req: Request, res: Response) {
         try {
-            const result = await bedService.allocateBed(req.params.patientId);
+            const result = await bedService.allocateBed(req.params.patientId as string);
             res.json(result);
         } catch (error: any) {
             res.status(400).json({ error: error.message });
