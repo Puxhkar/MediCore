@@ -3,6 +3,10 @@
     {
       "source": "/api/(.*)",
       "destination": "https://medicore-9fns.onrender.com/api/$1"
+    },
+    {
+      "source": "/((?!api/).*)",
+      "destination": "/index.html"
     }
   ]
 }
