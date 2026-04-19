@@ -169,14 +169,19 @@ const Doctors = () => {
               <button className="btn btn-outline" onClick={() => { setSearchTerm(''); setSpecialty('All'); fetchDocs(); }} style={{ marginTop: '20px' }}>Clear All Filters</button>
             </div>
           ) : (
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(360px, 1fr))', gap: '24px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
               {filtered.map(doc => (
-                <div key={doc.id} className="card hover-glow" style={{ borderTop: '6px solid #0d9488', position: 'relative' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '24px', alignItems: 'flex-start' }}>
-                    <div style={{ background: '#f1f5f9', width: '64px', height: '64px', borderRadius: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                      <User size={32} color="#94a3b8" />
-                    </div>
-                    <div style={{ textAlign: 'right' }}>
+                <div key={doc.id} className="glass-card row-card" style={{ borderLeft: '6px solid #0d9488', position: 'relative' }}>
+                  <div style={{ background: '#f1f5f9', width: '120px', height: '120px', borderRadius: '24px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                    <User size={64} color="#94a3b8" />
+                  </div>
+                  
+                  <div style={{ flex: 1 }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px' }}>
+                      <div>
+                        <h3 className="text-primary" style={{ fontSize: '24px', fontWeight: 800, marginBottom: '4px' }}>Dr. {doc.user?.firstName || doc.firstName} {doc.user?.lastName || doc.lastName}</h3>
+                        <p style={{ color: '#0d9488', fontWeight: 700, fontSize: '15px' }}>{doc.speciality || doc.specialization}</p>
+                      </div>
                       <span className={`badge ${doc.isAvailable ? 'badge-green' : 'badge-red'}`} style={{ 
                         background: doc.isAvailable ? '#f0fdf4' : '#fee2e2', 
                         color: doc.isAvailable ? '#166534' : '#dc2626',
@@ -186,35 +191,29 @@ const Doctors = () => {
                         {doc.isAvailable ? '● AVAILABLE' : '● BUSY'}
                       </span>
                     </div>
-                  </div>
-                  
-                  <h3 className="text-primary" style={{ fontSize: '20px', fontWeight: 800, marginBottom: '6px' }}>Dr. {doc.user?.firstName || doc.firstName} {doc.user?.lastName || doc.lastName}</h3>
-                  <p style={{ color: '#0d9488', fontWeight: 700, fontSize: '14px', marginBottom: '20px' }}>{doc.speciality || doc.specialization}</p>
-                  
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '24px', padding: '16px', background: '#f8fafc', borderRadius: '12px' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '13px', color: '#64748b' }}>
-                      <Clock size={16} color="#94a3b8" /> {doc.shiftStart} – {doc.shiftEnd}
+
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '16px', marginBottom: '16px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '14px', color: '#64748b' }}>
+                        <Clock size={16} color="#94a3b8" /> {doc.shiftStart} – {doc.shiftEnd}
+                      </div>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '14px', color: '#64748b' }}>
+                        <MapPin size={16} color="#94a3b8" /> {doc.hospital?.name || doc.hospitalName || 'MediCore Center'}
+                      </div>
                     </div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '13px', color: '#64748b' }}>
-                      <MapPin size={16} color="#94a3b8" /> {doc.hospital?.name || doc.hospitalName || 'MediCore Center'}
+
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                      {[1,2,3,4,5].map(i => <Star key={i} size={16} fill={i <= (doc.averageRating || 4) ? "#f59e0b" : "transparent"} color="#f59e0b" />)}
+                      <span style={{ fontSize: '14px', marginLeft: '8px', fontWeight: 700, color: '#0f172a' }}>{doc.averageRating || 4.8}</span>
+                      <span style={{ fontSize: '12px', color: '#94a3b8', marginLeft: '4px' }}>({doc.totalReviews || 120}+ reviews)</span>
                     </div>
                   </div>
 
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '4px', marginBottom: '24px' }}>
-                    {[1,2,3,4].map(i => <Star key={i} size={16} fill="#f59e0b" color="#f59e0b" />)}
-                    <Star size={16} color="#f59e0b" />
-                    <span style={{ fontSize: '14px', marginLeft: '6px', fontWeight: 700, color: '#0f172a' }}>{doc.averageRating || 4.8}</span>
-                    <span style={{ fontSize: '12px', color: '#94a3b8', marginLeft: '4px' }}>({doc.totalReviews || 120}+ reviews)</span>
-                  </div>
-
-                  <div style={{ borderTop: '1px solid #f1f5f9', paddingTop: '24px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
-                    <div>
-                      <p style={{ fontSize: '11px', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 700, marginBottom: '4px' }}>Consultation Fee</p>
-                      <p style={{ fontSize: '24px', fontWeight: 800, color: '#0f172a', margin: 0 }}>₹{doc.consultationFee}</p>
-                    </div>
-                    <div style={{ display: 'flex', gap: '12px' }}>
-                      <button className="btn btn-outline" onClick={() => navigate(`/doctor/${doc.id}`)} style={{ padding: '10px 20px', fontSize: '14px' }}>Profile</button>
-                      <button className="btn btn-primary" onClick={() => navigate(`/doctor/${doc.id}`)} style={{ padding: '10px 24px', fontSize: '14px' }}>Book Now</button>
+                  <div style={{ textAlign: 'right', borderLeft: '1px solid #f1f5f9', paddingLeft: '32px', minWidth: '200px' }}>
+                    <p style={{ fontSize: '11px', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 700, marginBottom: '4px' }}>Consultation Fee</p>
+                    <p style={{ fontSize: '32px', fontWeight: 800, color: '#0f172a', marginBottom: '20px' }}>₹{doc.consultationFee}</p>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                      <button className="btn btn-premium" onClick={() => navigate(`/doctor/${doc.id}`)}>Book Appointment</button>
+                      <button className="btn btn-outline" onClick={() => navigate(`/doctor/${doc.id}`)}>View Profile</button>
                     </div>
                   </div>
                 </div>

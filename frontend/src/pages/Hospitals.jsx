@@ -134,47 +134,49 @@ const Hospitals = () => {
                     <p style={{ color: '#94a3b8' }}>Try a different city or broaden your search terms.</p>
                 </div>
             ) : (
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(400px, 1fr))', gap: '32px' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
                     {filtered.map(h => (
-                        <div key={h.id} className="card hover-glow" style={{ position: 'relative', overflow: 'hidden' }}>
-                            <div style={{ display: 'flex', gap: '20px', marginBottom: '24px' }}>
-                                <div style={{ background: '#eff6ff', width: '64px', height: '64px', borderRadius: '18px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                                    <Building2 size={32} color="#3b82f6" />
+                        <div key={h.id} className="glass-card row-card" style={{ borderLeft: '6px solid #3b82f6', position: 'relative' }}>
+                            <div style={{ background: '#eff6ff', width: '120px', height: '120px', borderRadius: '24px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                                <Building2 size={64} color="#3b82f6" />
+                            </div>
+                            
+                            <div style={{ flex: 1 }}>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px' }}>
+                                    <div>
+                                        <h3 style={{ fontSize: '24px', fontWeight: 800, marginBottom: '4px', color: '#0f172a' }}>{h.name}</h3>
+                                        {h.distance !== undefined && (
+                                            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', color: '#0d9488', fontWeight: 700 }}>
+                                                <Navigation size={12} fill="#0d9488"/> {h.distance.toFixed(1)} km from your location
+                                            </div>
+                                        )}
+                                    </div>
+                                    <div style={{ display: 'flex', gap: '8px' }}>
+                                        <span className="badge" style={{ background: '#fee2e2', color: '#dc2626', border: '1px solid #fecaca', display: 'flex', alignItems: 'center', gap: '6px', fontWeight: 800, fontSize: '10px' }}>
+                                            <Activity size={10}/> 24/7 ER
+                                        </span>
+                                        <span className="badge" style={{ background: '#f0fdf4', color: '#166534', border: '1px solid #bbf7d0', fontWeight: 800, fontSize: '10px' }}>
+                                            ● AMBULANCE
+                                        </span>
+                                    </div>
                                 </div>
-                                <div style={{ flex: 1 }}>
-                                    <h3 style={{ fontSize: '20px', fontWeight: 800, marginBottom: '4px', color: '#0f172a' }}>{h.name}</h3>
-                                    {h.distance !== undefined && (
-                                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', color: '#0d9488', fontWeight: 700 }}>
-                                            <Navigation size={12} fill="#0d9488"/> {h.distance.toFixed(1)} km from your location
-                                        </div>
-                                    )}
+
+                                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '16px', marginBottom: '16px' }}>
+                                    <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', fontSize: '14px', color: '#64748b' }}>
+                                        <MapPin size={18} color="#94a3b8" /> {h.address}
+                                    </div>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '14px', color: '#64748b' }}>
+                                        <Phone size={18} color="#94a3b8" /> {h.contactNumber || '+91 22 2345 6789'}
+                                    </div>
                                 </div>
                             </div>
 
-                            <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', fontSize: '14px', marginBottom: '16px', color: '#64748b', lineHeight: 1.5 }}>
-                                <MapPin size={18} color="#94a3b8" style={{ marginTop: '2px' }} /> {h.address}
-                            </div>
-
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '14px', marginBottom: '24px', color: '#64748b' }}>
-                                <Phone size={18} color="#94a3b8" /> {h.contactNumber || '+91 22 2345 6789'}
-                            </div>
-
-                            <div style={{ display: 'flex', gap: '12px', marginBottom: '32px' }}>
-                                <span className="badge" style={{ background: '#fee2e2', color: '#dc2626', border: '1px solid #fecaca', display: 'flex', alignItems: 'center', gap: '6px', fontWeight: 800, fontSize: '11px' }}>
-                                    <Activity size={12}/> 24/7 EMERGENCY
-                                </span>
-                                <span className="badge" style={{ background: '#f0fdf4', color: '#166534', border: '1px solid #bbf7d0', fontWeight: 800, fontSize: '11px' }}>
-                                    ● AMBULANCE
-                                </span>
-                            </div>
-
-                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', borderTop: '1px solid #f1f5f9', paddingTop: '24px' }}>
-                                <button className="btn btn-outline" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '8px', fontSize: '14px' }}>
-                                    <Phone size={18}/> Contact Help
-                                </button>
-                                <button className="btn btn-primary" onClick={() => viewDoctors(h.id)} style={{ fontSize: '14px', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '8px' }}>
-                                    Find Doctors <ChevronRight size={18}/>
-                                </button>
+                            <div style={{ textAlign: 'right', borderLeft: '1px solid #f1f5f9', paddingLeft: '32px', minWidth: '220px' }}>
+                                <p style={{ fontSize: '11px', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 700, marginBottom: '12px' }}>Network Status: ACTIVE</p>
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                                    <button className="btn btn-premium" onClick={() => viewDoctors(h.id)}>Browse Specialists</button>
+                                    <button className="btn btn-outline">Call Hospital</button>
+                                </div>
                             </div>
                         </div>
                     ))}
