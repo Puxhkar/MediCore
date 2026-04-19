@@ -1,233 +1,112 @@
-🏥 Real-Time Hospital Resource Management System
+# 🏥 MediCore: Intelligent Hospital Resource Management System
+
+![MediCore Header](https://raw.githubusercontent.com/Puxhkar/MediCore/main/frontend/public/favicon.png)
+
+**MediCore** is a professional-grade, full-stack healthcare platform designed to optimize hospital resource allocation, emergency prioritization, and patient lifecycle management. Built with a focus on **Software Engineering Principles** and **Clean Architecture**, it provides a robust solution for real-time healthcare challenges.
+
+---
+
+## 🚀 Live Demo & Visuals
+
+MediCore features a premium, responsive UI build with **Vite + React** and a high-performance **Express + Prisma** backend.
 
-A backend-focused full-stack application designed to efficiently manage hospital resources such as beds, doctors, and emergency patients in real time.
+### Key Features:
+*   **Intelligent Emergency Queue**: Uses a **Max-Heap** data structure for O(1) retrieval of the highest-severity patients.
+*   **Cross-City discovery**: Search doctors and hospitals across **Pune, Mumbai, and Delhi**.
+*   **Dual-Role Dashboard**: Seamlessly switch between **Patient** (bookings, spending, history) and **Admin** (queue management, approvals, bed tracking) views.
+*   **Safe Enqueue System**: Automatically registers unknown patients during emergencies to ensure zero delay in critical care.
 
-This project emphasizes software engineering principles, system design practices, and clean architecture, with backend being the primary focus.
+---
 
-📌 Project Objective
+## 🛠 Tech Stack
 
-Hospitals often face challenges in:
+### Backend (The Core Engine)
+*   **Runtime**: Node.js with TypeScript
+*   **Framework**: Express.js
+*   **ORM**: Prisma (Type-safe database access)
+*   **Database**: MySQL
+*   **Architecture**: Layered (Controller → Service → Repository Pattern)
 
-Real-time bed tracking
+### Frontend (Premium UI/UX)
+*   **Library**: React.js (Vite)
+*   **Styling**: Vanilla CSS with Modern Glassmorphism
+*   **Icons**: Lucide React
+*   **Charts**: Recharts (Data visualization for patient spend/admin metrics)
 
-Emergency patient prioritization
+---
 
-Doctor scheduling conflicts
+## 🏗 System Architecture
 
-Resource allocation delays
+The project follows strict **SOLID** principles and uses enterprise-level design patterns:
 
-Manual and inconsistent record management
+*   **Repository Pattern**: Full abstraction of data access logic.
+*   **Singleton Pattern**: Guaranteed single database connection instance.
+*   **Strategy Pattern**: Implementation of various bed allocation algorithms.
+*   **State Pattern**: Tracking patient status from *Registered* to *Discharged*.
 
-This system provides a structured solution with intelligent allocation logic and proper state management.
+---
 
-🎯 Current Progress
+## 📂 Project Structure
 
-So far, the following have been completed:
+```text
+MediCore/
+├── backend/
+│   ├── src/
+│   │   ├── controllers/  # Request handling
+│   │   ├── services/     # Business logic
+│   │   ├── repositories/ # Database abstraction
+│   │   ├── utils/        # MaxHeap, Seed scripts
+│   │   └── server.ts     # Entry point
+│   └── prisma/           # Schema & Migrations
+├── frontend/
+│   ├── src/
+│   │   ├── pages/        # Dashboard, Emergency, Search
+│   │   ├── components/   # UI Layout & Navbar
+│   │   └── App.jsx       # Routing
+└── Docs/                 # UML Diagrams & Design Specs
+```
 
-✅ Project Idea Definition
+---
 
-✅ Use Case Diagram
+## 🚦 Getting Started
 
-✅ Sequence Diagrams (Multiple flows)
+### Prerequisites
+*   Node.js (v18+)
+*   MySQL Instance
 
-✅ Class Diagram
+### 1. Backend Setup
+```bash
+cd backend
+npm install
+# Configure your .env (DATABASE_URL)
+npx prisma db push
+npx prisma generate
+npm run dev
+```
 
-✅ ER Diagram (Extended version)
+### 2. Frontend Setup
+```bash
+cd frontend
+npm install
+npm run dev
+```
 
-The project is currently in the system design and architecture phase before backend implementation begins.
+### 3. Database Seeding
+To populate the system with realistic data for Pune, Mumbai, and Delhi:
+```bash
+cd backend
+npx tsx src/utils/seed.ts
+```
 
-🧠 Key System Features
-1️⃣ Patient Management
+---
 
-Register patients
+## 👨‍💻 Author
 
-Track severity levels
+**Pushkar Gupta**  
+*Backend-focused Full Stack Developer*  
+[GitHub Profile](https://github.com/Puxhkar)
 
-Manage patient lifecycle states:
+---
 
-Registered
-
-Waiting
-
-Admitted
-
-Under Treatment
-
-Discharged
-
-2️⃣ Emergency Priority Queue
-
-Severity-based prioritization
-
-Highest severity handled first
-
-3️⃣ Bed Management
-
-ICU / General bed tracking
-
-Automatic allocation logic
-
-Bed history tracking
-
-4️⃣ Doctor Scheduling
-
-Shift management
-
-Appointment conflict detection
-
-Doctor specialization mapping
-
-5️⃣ Resource Allocation
-
-Intelligent bed allocation strategy
-
-Fallback mechanisms
-
-Historical allocation tracking
-
-6️⃣ Audit Logging
-
-Log every major system action
-
-Track resource assignments
-
-Maintain system transparency
-
-🏗 Architecture Overview
-
-The backend follows Layered Architecture:
-
-Controller → Service → Repository → Database
-
-Proposed structure:
-
-src/
- ├── controllers/
- ├── services/
- ├── repositories/
- ├── models/
- ├── strategies/
- ├── states/
- ├── middlewares/
- ├── utils/
-
-🎨 Design Principles Followed
-✅ OOP Principles
-
-Encapsulation
-
-Abstraction
-
-Inheritance
-
-Polymorphism
-
-✅ Design Patterns
-
-Strategy Pattern → Bed allocation logic
-
-State Pattern → Patient lifecycle management
-
-Repository Pattern → Data abstraction
-
-Singleton Pattern → Database connection
-
-Factory Pattern (where applicable)
-
-🗄 Database Design
-
-The ER diagram includes:
-
-Users
-
-Doctors
-
-Patients
-
-Beds
-
-Wards
-
-Specializations
-
-Shifts
-
-Appointments
-
-Emergency Queue
-
-Treatments
-
-Resource Allocations
-
-Audit Logs
-
-Bed History
-
-The schema is normalized and designed for scalability.
-
-🔐 Planned Tech Stack
-Backend
-
-Node.js
-
-Express
-
-PostgreSQL
-
-Drizzle ORM
-
-JWT Authentication
-
-Frontend
-
-React (lightweight, backend-focused project)
-
-📊 Why This Project Is Backend-Focused
-
-Priority queue logic
-
-Resource allocation strategy
-
-Conflict detection algorithms
-
-State transitions
-
-Clean layered architecture
-
-System design implementation
-
-Backend logic accounts for 75% of the project weightage.
-
-🚀 Upcoming Implementation Phase
-
-Next steps:
-
-Backend project setup
-
-Database schema creation
-
-Strategy & State pattern implementation
-
-API development
-
-Authentication & authorization
-
-Integration testing
-
-📚 Diagrams Included
-
-idea.md
-
-useCaseDiagram.md
-
-sequenceDiagram.md
-
-classDiagram.md
-
-ErDiagram.md
-
-👨‍💻 Author
-
-Pushkar Gupta
-Backend-focused Full Stack Developer
+## 📄 License
+This project is licensed under the MIT License - see the LICENSE file for details.
